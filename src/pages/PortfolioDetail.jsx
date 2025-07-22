@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import portfolioItems from '../data/portfolioData';
+import portfolioItems from '../data/PortfolioData';
 import { motion } from 'framer-motion';
 
 const PortfolioDetail = () => {
