@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import portfolioItems from '../data/portfolioData';
+import portfolioItems from '../data/PortfolioData.js';
 import PortfolioItem from '../components/PortfolioItem';
 
 const Portfolio = () => {
