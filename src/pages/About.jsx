@@ -201,7 +201,7 @@ const About = () => {
             fontSize: "0.95rem",
           }}
         >
-          Download Portfolio
+          Download Cover Letter
         </motion.a>
 
         <motion.a
