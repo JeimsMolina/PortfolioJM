@@ -223,6 +223,26 @@ const About = () => {
         >
           Download References
         </motion.a>
+
+          <motion.a
+          href="/LoR.pdf"
+          download="LoR.pdf"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+          style={{
+            display: "inline-block",
+            padding: "0.6rem 1.2rem",
+            backgroundColor: "transparent",
+            color: "var(--beige)",
+            borderRadius: "24px",
+            border: "2px solid var(--accent)",
+            fontWeight: "700",
+            textDecoration: "none",
+            fontSize: "0.95rem",
+          }}
+        >
+          Download Letter of Recommendation
+        </motion.a>
       </div>
     </motion.section>
   );
