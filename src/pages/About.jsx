@@ -100,9 +100,9 @@ const About = () => {
         Education
       </h2>
       <p style={{ marginBottom: "1rem" }}>
-        🎓 <strong>Weber State University</strong> — B.S. in Computer Science{" "}
+        🎓 <strong>Weber State University</strong> — B.S. in Computer Science & Minor in Data Analytics{" "}
         <br />
-        Expected Graduation: Spring 2025 | GPA: 3.5
+        Expected Graduation: Spring 2027 | GPA: 3.5
       </p>
       <p style={{ fontSize: "0.95rem", opacity: 0.9, marginBottom: "2rem" }}>
         Relevant Coursework: Data Structures & Algorithms, Operating Systems,
