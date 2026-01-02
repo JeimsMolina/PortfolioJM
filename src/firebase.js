@@ -3,13 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCoeOj2DHj6CM1m1SqJZwAS0AuyIDz2AN0",
-  authDomain: "portfolio-jeimsm.firebaseapp.com",
-  databaseURL: "https://portfolio-jeimsm-default-rtdb.firebaseio.com",
-  projectId: "portfolio-jeimsm",
-  storageBucket: "portfolio-jeimsm.firebasestorage.app",
-  messagingSenderId: "444399571882",
-  appId: "1:444399571882:web:6b084479c3df7e98d511d3"
+  apiKey: "AIzaSyDSzrtcLpZNynLOxsbC5E4KZ5kvKZA-fZA",
+  authDomain: "portfolio-contact-e53e6.firebaseapp.com",
+  projectId: "portfolio-contact-e53e6",
+  storageBucket: "portfolio-contact-e53e6.firebasestorage.app",
+  messagingSenderId: "21643570826",
+  appId: "1:21643570826:web:652795cffbfd0189a3c773"
 };
 
 
