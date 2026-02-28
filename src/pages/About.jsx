@@ -145,6 +145,7 @@ const About = () => {
         style={{
           display: "inline-block",
           padding: "0.75rem 1.6rem",
+          marginRight: "0.9rem",
           backgroundColor: "var(--accent)",
           color: "var(--black)",
           borderRadius: "30px",
@@ -154,6 +155,28 @@ const About = () => {
         }}
       >
         Go to my LinkedIn →
+      </motion.a>
+
+          {/* GitHub Button */}
+      <motion.a
+        href="https://github.com/JeimsMolina"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.98 }}
+        style={{
+          display: "inline-block",
+          padding: "0.75rem 1.6rem",
+          paddingRight: "10px",
+          backgroundColor: "var(--accent)",
+          color: "var(--black)",
+          borderRadius: "30px",
+          fontWeight: "700",
+          textDecoration: "none",
+          fontSize: "1rem",
+        }}
+      >
+        Go to my GitHub →
       </motion.a>
       {/* Download buttons for Resume and Portfolio */}
       <div
