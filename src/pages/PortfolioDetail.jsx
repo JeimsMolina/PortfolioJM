@@ -1,81 +1,68 @@
 import { useParams, Link } from 'react-router-dom';
 import portfolioItems from '../data/PortfolioData';
 import { motion } from 'framer-motion';
+import { FiArrowLeft, FiArrowUpRight } from 'react-icons/fi';
 
 const PortfolioDetail = () => {
   const { id } = useParams();
   const project = portfolioItems.find((item) => item.id === id);
+  const index = portfolioItems.findIndex((item) => item.id === id);
 
   if (!project) {
     return (
-      <div style={{ color: 'var(--beige)', textAlign: 'center', padding: '2rem' }}>
-        <h2>Project not found</h2>
-        <Link to="/portfolio" style={{ color: 'var(--accent)' }}>← Back to Portfolio</Link>
-      </div>
+      <section className="detail container" style={{ textAlign: 'center', padding: '6rem 0' }}>
+        <h1 style={{ fontSize: '2.4rem', marginBottom: '1rem' }}>Project not found</h1>
+        <Link to="/portfolio" className="btn btn-outline"><FiArrowLeft /> Back to Portfolio</Link>
+      </section>
     );
   }
 
+  const next = portfolioItems[(index + 1) % portfolioItems.length];
+
   return (
     <motion.section
-      initial={{ opacity: 0, y: 40 }}
+      className="detail container"
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      style={{
-        maxWidth: '900px',
-        margin: '0 auto',
-        padding: '2rem',
-        color: 'var(--beige)',
-      }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      
-      <div style={{
-        position: 'relative',
-        height: '400px',
-        width: '100%',
-        borderRadius: '10px',
-        overflow: 'hidden',
-        marginBottom: '2rem',
-        boxShadow: '0 6px 16px rgba(0,0,0,0.5)'
-      }}>
-        <img
-          src={project.image}
-          alt={project.title}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            display: 'block'
-          }}
-        />
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'linear-gradient(to top, rgba(18, 18, 18, 0.85), rgba(18, 18, 18, 0.2))',
-        }} />
+      <Link to="/portfolio" className="back-link"><FiArrowLeft /> All projects</Link>
+
+      <div className="detail-hero glass">
+        <img src={project.image} alt={project.title} />
+        <div className="detail-hero-overlay" />
       </div>
 
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{project.title}</h1>
+      <div className="detail-body">
+        <span className="section-eyebrow">Project {project.id} / {portfolioItems.length}</span>
+        <h1 className="detail-title">{project.title}</h1>
+        <p className="detail-desc">{project.description}</p>
+        <p className="detail-details">{project.details}</p>
+      </div>
 
-      <p style={{ fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '1.5rem' }}>
-        {project.description}
-      </p>
+      <div className="detail-nav">
+        <Link to="/portfolio" className="btn btn-outline"><FiArrowLeft /> Back to Portfolio</Link>
+        <Link to={`/portfolio/${next.id}`} className="next-link">
+          Next project <strong>{next.title}</strong> <FiArrowUpRight />
+        </Link>
+      </div>
 
-      <p style={{
-        fontSize: '1rem',
-        color: 'var(--accent)',
-        lineHeight: '1.6',
-        whiteSpace: 'pre-line',
-        marginBottom: '2rem',
-      }}>
-        {project.details}
-      </p>
-
-      <Link to="/portfolio" style={{ color: 'var(--accent)', fontWeight: 'bold' }}>
-        ← Back to Portfolio
-      </Link>
+      <style>{`
+        .detail { padding: 4rem 0 5rem; }
+        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--beige-dim); font-size: 0.92rem; margin-bottom: 2rem; transition: color 0.3s var(--ease); }
+        .back-link:hover { color: var(--accent-bright); }
+        .detail-hero { position: relative; height: clamp(280px, 45vw, 440px); overflow: hidden; border-radius: var(--radius); margin-bottom: 2.5rem; }
+        .detail-hero img { width: 100%; height: 100%; object-fit: cover; }
+        .detail-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,12,0.5), transparent 60%); }
+        .detail-body { max-width: 760px; }
+        .detail-title { font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.5rem 0 1.2rem; }
+        .detail-desc { font-size: 1.15rem; color: var(--beige-dim); margin-bottom: 1.5rem; }
+        .detail-details { font-size: 1rem; color: var(--beige-dim); line-height: 1.8; white-space: pre-line; padding-left: 1.2rem; border-left: 2px solid var(--accent); }
+        .detail-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
+        .next-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--beige-dim); font-size: 0.92rem; transition: color 0.3s var(--ease); }
+        .next-link strong { color: var(--accent-bright); margin-left: 0.3rem; }
+        .next-link:hover { color: var(--accent-bright); }
+      `}</style>
     </motion.section>
   );
 };
