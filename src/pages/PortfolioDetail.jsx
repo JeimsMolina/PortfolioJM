@@ -2,11 +2,27 @@ import { useParams, Link } from 'react-router-dom';
 import portfolioItems from '../data/PortfolioData';
 import { motion } from 'framer-motion';
 import { FiArrowLeft, FiArrowUpRight } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 
 const PortfolioDetail = () => {
   const { id } = useParams();
   const project = portfolioItems.find((item) => item.id === id);
   const index = portfolioItems.findIndex((item) => item.id === id);
+
+  const images = project?.galleryImages?.length ? project.galleryImages : [project?.image];
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    setImgIndex(0);
+  }, [id]);
+
+  useEffect(() => {
+    if (!images || images.length < 2) return;
+    const timer = setInterval(() => {
+      setImgIndex((i) => (i + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [images.length, id]);
 
   if (!project) {
     return (
@@ -29,8 +45,15 @@ const PortfolioDetail = () => {
       <Link to="/portfolio" className="back-link"><FiArrowLeft /> All projects</Link>
 
       <div className="detail-hero glass">
-        <img src={project.image} alt={project.title} />
+        <img src={images[imgIndex]} alt={project.title} />
         <div className="detail-hero-overlay" />
+        {images.length > 1 && (
+          <div className="detail-dots">
+            {images.map((_, d) => (
+              <span key={d} className={`detail-dot ${d === imgIndex ? 'active' : ''}`} />
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="detail-body">
@@ -54,6 +77,9 @@ const PortfolioDetail = () => {
         .detail-hero { position: relative; height: clamp(280px, 45vw, 440px); overflow: hidden; border-radius: var(--radius); margin-bottom: 2.5rem; }
         .detail-hero img { width: 100%; height: 100%; object-fit: cover; }
         .detail-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,12,0.5), transparent 60%); }
+        .detail-dots { position: absolute; bottom: 1.1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 3; }
+        .detail-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(245,240,225,0.4); transition: all 0.3s var(--ease); }
+        .detail-dot.active { background: var(--accent-bright); width: 16px; border-radius: 4px; }
         .detail-body { max-width: 760px; }
         .detail-title { font-size: clamp(2rem, 4.5vw, 3rem); margin: 0.5rem 0 1.2rem; }
         .detail-desc { font-size: 1.15rem; color: var(--beige-dim); margin-bottom: 1.5rem; }

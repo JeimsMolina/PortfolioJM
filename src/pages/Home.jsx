@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FiArrowRight, FiArrowDown, FiArrowUpRight } from 'react-icons/fi';
 import jeimsImg from '../assets/MyPic.jpg';
 import portfolioItems from '../data/PortfolioData.js';
+import PortfolioItem from '../components/PortfolioItem';
 
 const container = {
   hidden: {},
@@ -21,10 +22,6 @@ const Home = () => {
       {/* HERO */}
       <section className="hero container">
         <motion.div className="hero-content" variants={container} initial="hidden" animate="show">
-          <motion.div variants={item} className="hero-badge">
-            <span className="pulse-dot" /> Available for opportunities
-          </motion.div>
-
           <motion.h1 variants={item} className="hero-title">
             Hey, I'm <span className="gradient-text">Jeims Molina</span>
           </motion.h1>
@@ -42,7 +39,7 @@ const Home = () => {
           </motion.div>
 
           <motion.div variants={item} className="hero-stats">
-            <div className="stat"><span className="stat-num">3+</span><span className="stat-label">Years D1 Athletics</span></div>
+            <div className="stat"><span className="stat-num">4+</span><span className="stat-label">Years D1 Athletics</span></div>
             <div className="stat-divider" />
             <div className="stat"><span className="stat-num">10+</span><span className="stat-label">Technologies</span></div>
             <div className="stat-divider" />
@@ -73,7 +70,7 @@ const Home = () => {
           @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
           .hero-title { font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.05; margin-bottom: 1.4rem; }
           .hero-sub { font-size: 1.12rem; color: var(--beige-dim); max-width: 520px; margin-bottom: 2.2rem; }
-          .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; }
+          .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem; margin-top: 10px; }
           .hero-stats { display: flex; align-items: center; gap: 1.5rem; }
           .stat { display: flex; flex-direction: column; }
           .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--accent-bright); line-height: 1; }
@@ -108,25 +105,7 @@ const Home = () => {
 
         <div className="home-featured-grid">
           {featured.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Link to={`/portfolio/${p.id}`} className="home-feature-card glass">
-                <div className="home-feature-img">
-                  <img src={p.image} alt={p.title} loading="lazy" />
-                  <div className="home-feature-overlay" />
-                </div>
-                <div className="home-feature-body">
-                  <h3>{p.title}</h3>
-                  <p>{p.description}</p>
-                  <span className="home-feature-cta">Read more <FiArrowRight /></span>
-                </div>
-              </Link>
-            </motion.div>
+            <PortfolioItem key={p.id} item={p} index={i} />
           ))}
         </div>
         <style>{`

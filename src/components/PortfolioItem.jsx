@@ -1,8 +1,20 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiArrowUpRight } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 
 const PortfolioItem = ({ item, index = 0 }) => {
+  const images = item.galleryImages?.length ? item.galleryImages : [item.image];
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length < 2) return;
+    const timer = setInterval(() => {
+      setImgIndex((i) => (i + 1) % images.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -12,11 +24,18 @@ const PortfolioItem = ({ item, index = 0 }) => {
     >
       <Link to={`/portfolio/${item.id}`} className="project-card glass">
         <div className="project-image-wrap">
-          <img src={item.image} alt={item.title} loading="lazy" />
+          <img src={images[imgIndex]} alt={item.title} loading="lazy" />
           <div className="project-overlay" />
           <span className="project-cta">
             <FiArrowUpRight />
           </span>
+          {images.length > 1 && (
+            <div className="project-dots">
+              {images.map((_, d) => (
+                <span key={d} className={`project-dot ${d === imgIndex ? 'active' : ''}`} />
+              ))}
+            </div>
+          )}
         </div>
         <div className="project-body">
           <h3>{item.title}</h3>
@@ -76,6 +95,27 @@ const PortfolioItem = ({ item, index = 0 }) => {
           opacity: 1;
           transform: translateY(0) scale(1);
         }
+        .project-dots {
+          position: absolute;
+          bottom: 0.9rem;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 0.4rem;
+          z-index: 3;
+        }
+        .project-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(245,240,225,0.4);
+          transition: all 0.3s var(--ease);
+        }
+        .project-dot.active {
+          background: var(--accent-bright);
+          width: 14px;
+          border-radius: 4px;
+        }
         .project-body {
           padding: 1.4rem 1.5rem 1.6rem;
         }
@@ -97,3 +137,4 @@ const PortfolioItem = ({ item, index = 0 }) => {
 };
 
 export default PortfolioItem;
+
